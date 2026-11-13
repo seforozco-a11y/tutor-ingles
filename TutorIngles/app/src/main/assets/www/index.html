@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tutor de Inglés</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round">
+        <rect x="9" y="2.5" width="6" height="11" rx="3" fill="#F59E0B" stroke="none"/>
+        <path d="M5 11a7 7 0 0 0 14 0"/>
+        <line x1="12" y1="18" x2="12" y2="21"/>
+        <line x1="8.5" y1="21" x2="15.5" y2="21"/>
+      </svg>
+    </div>
+    <div class="brand-text">
+      <h1>Tutor de Inglés</h1>
+      <p>El curso más completo · sin internet</p>
+    </div>
+  </div>
+  <div id="statusPills">
+    <span id="translatorPill" class="pill" title="Traducción automática on-device">Traductor: verificando…</span>
+    <span id="ttsPill" class="pill" title="Voz de salida">Voz: verificando…</span>
+  </div>
+</header>
+
+<main>
+
+  <section class="controls">
+    <div class="seg" id="directionSeg" role="tablist">
+      <button class="seg-btn active" data-dir="es-en">Español → Inglés</button>
+      <button class="seg-btn" data-dir="en-es">Inglés → Español</button>
+    </div>
+  </section>
+
+  <section class="mic-zone">
+    <button id="micBtn" class="mic" aria-label="Toca para hablar">
+      <svg viewBox="0 0 24 24" width="44" height="44" aria-hidden="true">
+        <rect x="9" y="2" width="6" height="11.5" rx="3" fill="#FFFFFF"/>
+        <path d="M5 11.5a7 7 0 0 0 14 0" fill="none" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round"/>
+        <line x1="12" y1="18.5" x2="12" y2="22" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round"/>
+        <line x1="8" y1="22" x2="16" y2="22" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round"/>
+      </svg>
+    </button>
+    <p id="micHint">Toca el micrófono y pregunta: <b>«¿cómo se dice maestro?»</b></p>
+    <div id="transcript" class="transcript hidden"></div>
+  </section>
+
+  <section id="results" class="results" aria-live="polite"></section>
+
+  <section class="typed">
+    <input id="searchInput" type="text" autocomplete="off"
+           placeholder="…o escribe aquí la palabra o frase">
+    <button id="searchBtn">Buscar</button>
+  </section>
+
+  <section id="history" class="history hidden">
+    <h2>Consultas recientes</h2>
+    <div id="historyList" class="history-list"></div>
+  </section>
+
+</main>
+
+<footer class="footbar">
+  <button id="lessonsBtn" class="foot-btn">
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#2563EB" stroke-width="2" stroke-linecap="round"><path d="M4 4h9a4 4 0 0 1 4 4v12H8a4 4 0 0 0-4 4z" transform="scale(0.8) translate(3 0)"/><path d="M4 5.5h9a2.5 2.5 0 0 1 2.5 2.5v12H6.5A2.5 2.5 0 0 0 4 22.5z"/></svg>
+    Lecciones
+  </button>
+  <button id="helpBtn" class="foot-btn">
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#F59E0B" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9.5"/><path d="M9.5 9.3a2.6 2.6 0 1 1 3.7 2.4c-.9.5-1.2 1-1.2 2"/><circle cx="12" cy="17" r="0.6" fill="#F59E0B"/></svg>
+    Guía de voz
+  </button>
+</footer>
+
+<div id="lessonsPanel" class="panel hidden">
+  <div class="panel-head">
+    <h2>Lecciones del curso</h2>
+    <button id="lessonsClose" class="close-btn">Cerrar</button>
+  </div>
+  <div id="lessonsBody" class="panel-body"></div>
+</div>
+
+<div id="helpDialog" class="panel hidden">
+  <div class="panel-head">
+    <h2>Guía de voz (modo sin internet)</h2>
+    <button id="helpClose" class="close-btn">Cerrar</button>
+  </div>
+  <div class="panel-body help">
+    <h3>Para que la app te entienda y te responda sin internet:</h3>
+    <ol>
+      <li>Abre <b>Ajustes del teléfono</b> → <b>Idiomas y entrada</b> → <b>Salida de texto a voz</b> (o "Motor TTS").</li>
+      <li>Elige <b>Google Texto a voz</b> y en "Idiomas instalados" descarga <b>Español (México)</b> e <b>Inglés (Estados Unidos)</b>.</li>
+      <li>Ve a <b>Entrada de voz</b> (reconocimiento de voz de Google) y activa la opción <b>"Reconocimiento sin conexión"</b> descargando el paquete de español e inglés.</li>
+    </ol>
+    <h3>Colores en pantalla</h3>
+    <ul>
+      <li><span class="demo-amber">Naranja/ámbar</span> = cómo se pronuncia (la lectura del curso).</li>
+      <li><span class="demo-blue">Azul</span> = traducción formal (el significado en español).</li>
+    </ul>
+    <h3>Traducción automática</h3>
+    <p>Si pides algo que no está en el curso, la app usa el traductor <b>ML Kit</b> integrado (descarga un modelo una sola vez de ~30 MB con internet; después traduce sin conexión).</p>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
